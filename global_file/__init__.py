@@ -1,0 +1,1 @@
+from .global_file import GlobalConfig
