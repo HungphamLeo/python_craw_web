@@ -1,5 +1,6 @@
 # cmd/main.py
-from run import run_etl
+from Deploy import Run
 
 if __name__ == "__main__":
-    run_etl.run()
+    deploy = Run()
+    deploy.run_etl()
