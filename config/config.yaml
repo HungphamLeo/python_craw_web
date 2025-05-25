@@ -1,6 +1,6 @@
 logger:
   level: INFO
-  storage_path: "logs/"
+  storage_path: "/storage/logger_storage"
   files:
     debug: "debug.log"
     info: "info.log"
@@ -36,6 +36,7 @@ scraper:
   max_articles: 200
   max_range: 4
   days: 4
+  request_timeout: 5
 etl:
   extract:
     source: "baomoi.com"

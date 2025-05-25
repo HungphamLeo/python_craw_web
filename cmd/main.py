@@ -1,3 +1,5 @@
-from internal.controller.controller import run_etl_pipeline
-if __name__ == '__main__':
-    run_etl_pipeline()
+# cmd/main.py
+from run import run_etl
+
+if __name__ == "__main__":
+    run_etl.run()

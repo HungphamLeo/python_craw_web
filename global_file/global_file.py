@@ -1,4 +1,5 @@
 from config.loader import ConfigLoader
+from package.logger.logger import LoggerManager
 
 class GlobalConfig:
     def __init__(self):
@@ -11,5 +12,6 @@ class GlobalConfig:
         self.kafka_config = self.config_loader.get_kafka_config()
         self.scraper_config = self.config_loader.get_scraper_config()
         self.etl_config = self.config_loader.get_etl_config()
+        self.logger = LoggerManager().get_logger() 
 
-
+global_config = GlobalConfig()

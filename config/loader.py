@@ -37,9 +37,4 @@ class ConfigLoader:
     def get_etl_config(self):
         return self.config['etl']
 
-# # Usage
-# if __name__ == "__main__":
-#     config_loader = ConfigLoader('config/config.yaml')
-#     logger_config = config_loader.get_logger_config()
-#     logging.basicConfig(level=logger_config['level'], format=logger_config['format'], filename=logger_config['file'])
-#     logging.info("Logger is configured.")
+

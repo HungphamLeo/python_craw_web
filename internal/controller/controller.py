@@ -1,5 +1,12 @@
-from internal.pipelines.ner_etl_pipeline import BaomoiETLPipeline
+# internal/controllers/etl_controller.py
+from internal.etl_pipeline.etl_pipeline import ETLPipeline
+from global_file.global_file    import global_config
 
-def run_etl_pipeline():
-    pipeline = BaomoiETLPipeline()
-    pipeline.run()
+class ETLController:
+    def __init__(self):
+        self.pipeline = ETLPipeline()
+
+    def run(self):
+        global_config.logger.info("Running ETL process...")
+        self.pipeline.run()
+        global_config.logger.info("ETL process completed.")
