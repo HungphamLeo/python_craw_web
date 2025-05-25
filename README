@@ -1,0 +1,13 @@
+Controller nhận yêu cầu từ người dùng/dịch vụ và gọi ETLPipeline.
+
+Pipeline kiểm tra cấu hình và chọn nguồn dữ liệu phù hợp.
+
+Extractor (vd: ArticleScraper) thu thập dữ liệu và trả về danh sách Article.
+
+NER Model xử lý dữ liệu và trích xuất thực thể (Entity).
+
+Repository (vd: EntityRepositoryMySql) lưu trữ các Entity vào cơ sở dữ liệu.
+
+Database Loader (vd: MySQLLoader) thực hiện kết nối và lưu dữ liệu.
+
+Pipeline hoàn thành và phản hồi kết quả về Controller.

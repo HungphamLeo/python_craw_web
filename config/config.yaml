@@ -1,0 +1,45 @@
+logger:
+  level: INFO
+  storage_path: "/storage/logger_storage"
+  files:
+    debug: "debug.log"
+    info: "info.log"
+    warning: "warning.log"
+    error: "error.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+mysql:
+  host: "localhost"
+  port: 3306
+  user: "your_username"
+  password: "your_password"
+  database: "your_database"
+hdfs:
+  host: "localhost"
+  port: 50070
+  user: "hdfs_user"
+docker:
+  image: "your_docker_image"
+  container_name: "your_container_name"
+spark:
+  master: "local[*]"
+  app_name: "YourAppName"
+redis:
+  host: "localhost"
+  port: 6379
+  db: 0
+kafka:
+  bootstrap_servers: "localhost:9092"
+  topic: "your_topic"
+scraper:
+  url: "https://baomoi.com"
+  max_pages: 200
+  max_articles: 200
+  max_range: 4
+  days: 4
+  request_timeout: 5
+  etity_top : 50
+etl_pipeline:
+  extract:
+    source: "baomoi.com"
+  load:
+    destination: "mysql"
