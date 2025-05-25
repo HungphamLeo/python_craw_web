@@ -3,6 +3,12 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from global_file.global_file import global_config
+from internal.models.article_scraper_models import Article
+
+class ArticleNormalizer:
+    def normalize(self, title: str, content: str, published_at: datetime) -> Article:
+        return Article(id=None, title=title, content=content, published_at=published_at)
+    
 
 class ArticleScraper:
     def __init__(self):
@@ -12,6 +18,7 @@ class ArticleScraper:
         self.visited_urls = set()
         self.today = datetime.now()
         self.max_days = timedelta(days=global_config.config_loader.get_scraper_config()['days'])
+        self.normalizer = ArticleNormalizer()
 
     def scrape(self):
         page = 1
@@ -53,8 +60,10 @@ class ArticleScraper:
                         continue
 
                     article_content = article_soup.get_text(separator=' ', strip=True)
-                    self.articles.append(article_content)
-                    global_config.logger.info(f"✅ Collected article {len(self.articles)} - {article_url}")
+                    article_title = article_soup.title.string if article_soup.title else "No Title"
+                    article = self.normalizer.normalize(article_title, article_content, pub_time)
+                    self.articles.append(article)
+                    global_config.logger.info(f" Collected article {len(self.articles)} - {article_url}")
 
                 except Exception as e:
                     global_config.logger.error(f"Error processing article: {e}")

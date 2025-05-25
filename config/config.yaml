@@ -37,6 +37,7 @@ scraper:
   max_range: 4
   days: 4
   request_timeout: 5
+  etity_top : 50
 etl:
   extract:
     source: "baomoi.com"

@@ -1,5 +1,5 @@
 # internal/controllers/etl_controller.py
-from internal.etl_pipeline.etl_pipeline import ETLPipeline
+from internal.service.etl_pipeline import ETLPipeline
 from global_file.global_file    import global_config
 
 class ETLController:
