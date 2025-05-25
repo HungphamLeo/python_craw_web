@@ -35,6 +35,6 @@ class ConfigLoader:
         return self.config['scraper']
 
     def get_etl_config(self):
-        return self.config['etl']
+        return self.config['etl_pipeline']
 
 

@@ -1,19 +1,28 @@
 # internal/pipelines/etl_pipeline.py
 from internal.extractors.article_scraper import ArticleScraper
 from internal.models.article_scraper_models import Entity
-from internal.repo.mysql_repo import EntityRepository
+from internal.repo.mysql_repo import EntityRepositoryMySql, ArticleRepositoryMySQl
 from internal.loaders.mysql.mysql_loaders import MySQLLoader
-from internal.extractors.entity import NERModel
+from internal.transform.entity import NERModel
+from global_file.global_file import global_config
+
 class ETLPipeline:
     def __init__(self):
         self.scraper = ArticleScraper()
         self.ner_model = NERModel()
-        self.loader = MySQLLoader()
-        self.repository = EntityRepository(self.loader)
+
+        # Kiểm tra loại cơ sở dữ liệu từ cấu hình
+        db_type = global_config.config_loader.get_etl_config()['load']['destination']
+        if db_type == "mysql":
+            self.loader = MySQLLoader()
+            self.entity_repository = EntityRepositoryMySql(self.loader)
+            self.article_repository = ArticleRepositoryMySQl(self.loader)
+        else:
+            raise ValueError(f"Unsupported database type: {db_type}")
 
     def run(self):
-        articles = self.scraper.scrape()  # Bước Extract
+        articles = self.scraper.scrape()
         entities = self.ner_model.extract_entities(articles)
         for entity in entities:
-            self.repository.save(Entity(id=None, text=entity[0], count=entity[1]))  # Bước Load
+            self.entity_repository.save(entity)
         self.loader.close()

@@ -38,7 +38,7 @@ scraper:
   days: 4
   request_timeout: 5
   etity_top : 50
-etl:
+etl_pipeline:
   extract:
     source: "baomoi.com"
   load:

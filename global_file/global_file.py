@@ -11,7 +11,7 @@ class GlobalConfig:
         self.redis_config = self.config_loader.get_redis_config()
         self.kafka_config = self.config_loader.get_kafka_config()
         self.scraper_config = self.config_loader.get_scraper_config()
-        self.etl_config = self.config_loader.get_etl_config()
+        self.etl_pipeline_config = self.config_loader.get_etl_config()
         self.logger = LoggerManager().get_logger() 
 
 global_config = GlobalConfig()

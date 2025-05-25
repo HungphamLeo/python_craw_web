@@ -3,7 +3,7 @@ from internal.loaders.mysql.mysql_loaders import MySQLLoader
 from internal.models.article_scraper_models import Article
 from internal.models.article_scraper_models import Entity
 from global_file.global_file import global_config
-class ArticleRepository:
+class ArticleRepositoryMySQl:
     def __init__(self, loader: MySQLLoader):
         self.loader = loader
 
@@ -35,7 +35,7 @@ class ArticleRepository:
         return self.loader.cursor.fetchall()
 
 
-class EntityRepository:
+class EntityRepositoryMySql:
     def __init__(self, loader: MySQLLoader):
         self.loader = loader
     def save(self, entity: Entity):
