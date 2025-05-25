@@ -1,5 +1,5 @@
 # internal/repos/mysql_repository.py
-from internal.loaders.mysql.mysql_loaders import MySQLLoader
+from internal.database.mysql.mysql_loaders import MySQLLoader
 from internal.models.article_scraper_models import Article
 from internal.models.article_scraper_models import Entity
 from global_file.global_file import global_config

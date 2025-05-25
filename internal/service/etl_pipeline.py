@@ -1,9 +1,9 @@
 # internal/pipelines/etl_pipeline.py
-from internal.extractors.article_scraper import ArticleScraper
+from internal.etl_pipeline.extractors.article_scraper import ArticleScraper
 from internal.models.article_scraper_models import Entity
 from internal.repo.mysql_repo import EntityRepositoryMySql, ArticleRepositoryMySQl
-from internal.loaders.mysql.mysql_loaders import MySQLLoader
-from internal.transform.entity import NERModel
+from internal.database.mysql.mysql_loaders import MySQLLoader
+from internal.etl_pipeline.transform.entity import NERModel
 from global_file.global_file import global_config
 
 class ETLPipeline:
