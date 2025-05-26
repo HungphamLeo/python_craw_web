@@ -10,19 +10,26 @@ class ETLPipeline:
     def __init__(self):
         self.scraper = ArticleScraper()
         self.ner_model = NERModel()
+        
 
         # Kiểm tra loại cơ sở dữ liệu từ cấu hình
-        db_type = global_config.config_loader.get_etl_config()['load']['destination']
-        if db_type == "mysql":
-            self.loader = MySQLLoader()
-            self.entity_repository = EntityRepositoryMySql(self.loader)
-            self.article_repository = ArticleRepositoryMySQl(self.loader)
-        else:
-            raise ValueError(f"Unsupported database type: {db_type}")
+        # db_type = global_config.config_loader.get_etl_config()['load']['destination']
+        # if db_type == "mysql":
+        #     self.loader = MySQLLoader()
+        #     self.entity_repository = EntityRepositoryMySql(self.loader)
+        #     self.article_repository = ArticleRepositoryMySQl(self.loader)
+        # else:
+        #     raise ValueError(f"Unsupported database type: {db_type}")
 
     def run(self):
-        articles = self.scraper.scrape()
-        entities = self.ner_model.extract_entities(articles)
-        for entity in entities:
-            self.entity_repository.save(entity)
-        self.loader.close()
+        try:
+            articles = self.scraper.scrape()
+            entities = self.ner_model.extract_entities(articles)
+            for entity in entities:
+            #     self.entity_repository.save(entity)
+            # self.loader.close()
+                global_config.logger.info(f'----------------------- Here is entity ------------')
+                global_config.logger.info(f'entity: {entity}')
+        except Exception as e:
+            global_config.logger.error(f"ETL Pipeline failed: {e}")
+            raise e

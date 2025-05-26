@@ -4,6 +4,9 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from global_file.global_file import global_config
 from internal.models.article_scraper_models import Article
+from dateutil import parser
+
+
 
 class ArticleNormalizer:
     def normalize(self, title: str, content: str, published_at: datetime) -> Article:
@@ -55,7 +58,7 @@ class ArticleScraper:
                     if not time_tag or not time_tag.get("datetime"):
                         continue
 
-                    pub_time = datetime.strptime(time_tag.get("datetime"), "%Y-%m-%dT%H:%M:%S%z").replace(tzinfo=None)
+                    pub_time = parser.isoparse(time_tag.get("datetime")).replace(tzinfo=None)
                     if self.today - pub_time > self.max_days:
                         continue
 

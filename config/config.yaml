@@ -1,6 +1,6 @@
 logger:
   level: INFO
-  storage_path: "/storage/logger_storage"
+  storage_path: "C:/Users/Admin/Downloads/Project/Github/python_craw_web/storage/logger_storage"
   files:
     debug: "debug.log"
     info: "info.log"
@@ -34,10 +34,10 @@ scraper:
   url: "https://baomoi.com"
   max_pages: 200
   max_articles: 200
-  max_range: 4
+  max_range: 10
   days: 4
   request_timeout: 5
-  etity_top : 50
+  top_entity : 50
 etl_pipeline:
   extract:
     source: "baomoi.com"
