@@ -6,6 +6,7 @@ from internal.database.mysql.mysql_loaders import MySQLLoader
 from internal.etl_pipeline.transform.entity import NERModel
 from global_file.global_file import global_config
 
+
 class ETLPipeline:
     def __init__(self):
         self.scraper = ArticleScraper()

@@ -13,5 +13,5 @@ class Article:
 class Entity:
     id: int
     text: str
-    content: str
+    frequency: str
     published_at: datetime
