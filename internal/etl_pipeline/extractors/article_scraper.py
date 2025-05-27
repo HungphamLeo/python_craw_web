@@ -1,17 +1,32 @@
 # internal/extractors/article_scraper.py
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from global_file.global_file import global_config
 from internal.models.article_scraper_models import Article
 from dateutil import parser
+from transform.data_type_export.dto import EntityDTO
+from transform.data_type_export.export_factory import ExportFactory
 
 
 
 class ArticleNormalizer:
     def normalize(self, title: str, content: str, published_at: datetime) -> Article:
+        
         return Article(id=None, title=title, content=content, published_at=published_at)
-    
+
+    def export_articles(self, articles: list[Article], file_path: None, export_status = False) -> None:
+        if not export_status or not file_path:
+            global_config.logger.info("Export status is False or file path is None. Skipping export.")
+            return
+        else:
+            exporter = ExportFactory.get_exporter('excel')
+            exporter.export_articles(articles, file_path)
+            global_config.logger.info(f"Exported {len(articles)} articles to {file_path}")
+            
 
 class ArticleScraper:
     def __init__(self):

@@ -1,12 +1,11 @@
 # Removed unused: import spacy
 from collections import Counter
-# Assuming datetime might be used by Entity or other parts, kept for now.
-# If Entity doesn't use published_at from a datetime object here, it could be removed
-# if not used elsewhere. For now, let's assume Entity might need it or it was a placeholder.
 from datetime import datetime
 from internal.models.article_scraper_models import Entity # Assuming this path is correct
 from global_file.global_file import global_config # Assuming this path is correct
 from pyvi import ViTokenizer, ViPosTagger
+from transform.data_type_export.dto import EntityDTO
+from transform.data_type_export.export_factory import ExportFactory
 
 class NERModel:
     def __init__(self):
@@ -61,9 +60,24 @@ class NERModel:
 
 
 class EntityNormalizer:
+    def __init__(self):
+        self.scraper_config = global_config.config_loader.get_scraper_config()
+        self.export_status = self.scraper_config.get('export_entity_status', False)
+        self.file_path = self.scraper_config.get('export_entity_path')
+
     def __call__(self, most_common_entities):
-        # most_common_entities is a list of (entity_name, count) tuples
-        # The Entity model expects: id, title, content, published_at
-        # We are setting title to the extracted entity_name.
-        # Other fields are defaults as per the original code.
-        return [Entity(id=None, text=ent[0], content="", published_at=None) for ent in most_common_entities]
+        entity_list = [
+            Entity(id=None, text=name.strip(), frequency=str(count), published_at=None)
+            for name, count in most_common_entities
+        ]
+
+        if self.export_status and self.file_path:
+            self.export_entities(entity_list)
+
+        return entity_list
+
+
+    def export_entities(self, entities):
+        exporter = ExportFactory.get_exporter('excel')
+        exporter.export_entities(entities, self.file_path)
+

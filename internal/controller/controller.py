@@ -5,6 +5,7 @@ from global_file.global_file    import global_config
 class ETLController:
     def __init__(self):
         self.pipeline = ETLPipeline()
+        # class object any services.
 
     def run(self):
         global_config.logger.info("Running ETL process...")

@@ -34,10 +34,12 @@ scraper:
   url: "https://baomoi.com"
   max_pages: 200
   max_articles: 200
-  max_range: 10
+  max_range: 50
   days: 4
   request_timeout: 5
   top_entity : 50
+  export_entity_status : true
+  export_entity_path: "./storage/export_entity.xlsx"
 etl_pipeline:
   extract:
     source: "baomoi.com"
